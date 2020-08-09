@@ -13,6 +13,8 @@ separatorDialog::separatorDialog(QWidget * parent) :
     int i ;
     for (i = 0 ; i < 5 ; i++){
         buttons[i].setText(SEPARATORS::buttonName[i]);
+        buttons[i].setToolTip(tr("Choose separtors between datas fields"));
+
         Layout->addWidget(&buttons[i],0,i);
         connect( &buttons[i] ,SIGNAL(stateChanged(int))  ,this  , SLOT(computeSepCode(int))  );
 
@@ -26,6 +28,7 @@ separatorDialog::separatorDialog(QWidget * parent) :
 
     QPushButton *close = new QPushButton(tr("Close"));
     Test = new QPushButton(tr("Fields Visu"));
+    Test->setToolTip(tr("View fields according to choosen separators"));
 
 
     Layout->addWidget(Test,2,0);
@@ -42,10 +45,14 @@ void separatorDialog::disableCheckBox(){
         if(channelCode != 0){
             for (int i = 0 ; i < size ; i++){
                 buttons[i].setDisabled(true);
+                buttons[i].setToolTip(tr("You can't change separator when a channel is selected for plotting. Unselect all channel before trying to modify those settings"));
             }
     }else{
             for (int i = 0 ; i < size ; i++){
                 buttons[i].setEnabled(true);
+                buttons[i].setToolTip(tr("Choose separtors between datas fields"));
+
+
             }
     }
 }
@@ -66,8 +73,17 @@ void separatorDialog::testOnOff(){
     test = !test ;
     computeSepCode(1);
 
-    if (test) Test->setText("Raw datas");
-    if (!test) Test->setText("Show fields");
+    if (test) {
+        Test->setText("Raw datas");
+        Test->setToolTip(tr("View raw datas as received on port"));
+
+    }
+
+    if (!test) {
+        Test->setText("Show fields");
+        Test->setToolTip(tr("View fields according to choosen separators"));
+
+    }
 
 }
 

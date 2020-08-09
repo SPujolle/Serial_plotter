@@ -24,7 +24,8 @@ panelSet:: panelSet(int i , QColor * colorList, QWidget * parent):
     selectBox = new QCheckBox(this) ;
     selectBox->setText(QString::number(i+1));
 
-    setBut = new QPushButton(tr("Set"),this) ;
+    setBut = new QPushButton(tr("Parameters"),this) ;
+    setBut->setToolTip(tr("Set channel gain, offset and parameters"));
     setBut->show();
 
     connect( setBut , SIGNAL(clicked(bool)) ,this  ,SLOT( butClicked(bool) )  );

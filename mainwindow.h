@@ -74,7 +74,8 @@ private:
     QLabel *status = nullptr;
     QSerialPort *serial = nullptr;
 
-    Console *console = nullptr;
+    //Console *console = nullptr;
+    fullConsole *console = nullptr ;
     separatorDialog  *sepDialog = nullptr;
 
     scopeWindow *plot ;
@@ -126,6 +127,7 @@ public slots:
     void openSerialPort();
     void closeSerialPort(bool);
     void readData();
+    void writeData(const QByteArray &);
     bool selectOutFile();
     bool saveFile(bool);
     bool switchRecordOnOff(bool);

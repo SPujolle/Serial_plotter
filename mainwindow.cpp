@@ -15,7 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
     settWindow(new settingsDialog(this)),
     status(new QLabel() ),
     serial(new QSerialPort(this)),
-    console(new Console(this)),
+   // console(new Console(this)),
+    console(new fullConsole(this)),
+
     sepDialog(new separatorDialog(this)),
     plot(new scopeWindow(this)),
     centralStack(new QStackedWidget(this)),
@@ -87,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ports, &QAction::triggered,settWindow ,&settingsDialog::show );
     connect(Connect, &QAction::triggered, this, &MainWindow::openSerialPort);
     connect(disConnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
-    connect(clearConsole, &QAction::triggered, console, &Console::clear);
+    connect(clearConsole, &QAction::triggered, console, &fullConsole::clear);
     connect(separator, &QAction::triggered, this, &MainWindow::chooseSeparator);
 
 
@@ -102,6 +104,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(  ,  ,  ,  );
 
     connect(serial, &QSerialPort::readyRead, this, &MainWindow::readData);
+
+    connect(console, &fullConsole::getData, this, &MainWindow::writeData);
 
     connect( this , SIGNAL(newDatas(QList<QByteArray>&)) ,
              plot->plotWindow , SLOT(updateGraph(QList<QByteArray>&)) );
@@ -193,6 +197,11 @@ void MainWindow::readData()
 
 
 
+}
+
+void MainWindow::writeData(const QByteArray &data)
+{
+    serial->write(data);
 }
 
 void MainWindow::accTrame(){

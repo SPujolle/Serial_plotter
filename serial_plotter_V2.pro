@@ -41,3 +41,7 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
+# indique le fichier icone a afficher sous window
+ RC_ICONS = serV.ico

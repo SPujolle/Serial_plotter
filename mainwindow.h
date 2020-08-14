@@ -134,6 +134,7 @@ public slots:
     bool CloseFile(bool);
     void chooseSeparator(bool);
     void putConsole(QByteArray &);
+    void about();
 
 signals :
     void fieldsNumber(int);

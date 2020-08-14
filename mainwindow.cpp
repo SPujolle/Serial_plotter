@@ -73,10 +73,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     clearConsole = new QAction("&Clear console", this);
 
-
     wiew = menuBar()->addMenu(tr("&Wiew"));
     wiew->addAction(clearConsole);
 
+
+    QMenu *about = new QMenu(this);
+        about = menuBar()->addMenu(tr("?"));
+        QAction * aboutsV = new QAction("About SerialView", this);
+        about->addAction(aboutsV);
 
 // =====================CONNECTION========================//
 
@@ -92,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(clearConsole, &QAction::triggered, console, &fullConsole::clear);
     connect(separator, &QAction::triggered, this, &MainWindow::chooseSeparator);
 
+   connect(aboutsV, &QAction::triggered, this, &MainWindow::about);
 
 //    connect(graphWiew  ,&QAction::triggered  ,this  ,&MainWindow::switchConsoleGraph );
 //    connect(consoleWiew  ,&QAction::triggered  ,this  ,&MainWindow::switchConsoleGraph );
@@ -124,6 +129,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::about()
+{
+    QMessageBox::about(this, tr("About SerialView"),
+                       tr("The <b>SerialView V01 BETA</b> is an crude version "
+                          "for a multi tool for serial port, ploter, logger and console<br> "
+                          "writen with Qt, GPL intended for multiplatform.<br>"
+                          "If you find bug, please mail to <b>serialview@free.fr</b><br>"
+                          "To acces sources : <b>https://github.com/SPujolle/Serial_plotter</b><br>"
+                          "Help welcome to compile a linux and mac version "));
+}
 
 
 
